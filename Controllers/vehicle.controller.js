@@ -228,6 +228,11 @@ const cb = (err, doc, res)=>{
              msg:"stolen vehicle, report sent"
          })
     }
+    else{
+        res.status(200).json({
+            status: "success"
+        })
+    }
 }
 
 exports.tollScan = async(req, res)=>{
@@ -248,6 +253,7 @@ exports.tollScan = async(req, res)=>{
         body: body
        }).then(res => res.json())
       .then(async json => {
+          console.log("got response from plateRecognizer!!!");
         
         number_plate = json.results[0].plate;
         number_plate  = number_plate.toUpperCase();
@@ -281,6 +287,7 @@ exports.tollScan = async(req, res)=>{
                 status:"success",
                 msg: "Auth vehicle"
             })
+            return;
         }
 
         // 2) If not auth then update stolen vehicles data's 'lastSeenAt' field
@@ -320,10 +327,6 @@ exports.tollScan = async(req, res)=>{
         else if(number_plate.startsWith("RJ")){
             raj_stolen.findOneAndUpdate({number:number_plate}, data_to_update, {new:true}, (err, doc)=>cb(err, doc, res));
         }
-
-        res.status(200).json({
-            status: "success"
-        })
 
     
         // 4) If vehicle is not in stolen && auth db then send alert
