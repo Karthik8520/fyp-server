@@ -10,6 +10,10 @@ const vehicle_schema = mongoose.Schema({
         type:String, 
         required: [true, "Owner name is required"]
     },
+    mobileNumber: {
+        type: 'String',
+        required: [true, "Mobile number is required."]
+    },
     address: {
         type:String, 
         required: [true, "Address name is required"]
@@ -30,6 +34,12 @@ const vehicle_schema = mongoose.Schema({
     },
     //passedAt represents the time at which it passed through toll-tax 
     passedAt: {
+        type: Date
+    },
+    otp: {
+        type: String
+    },
+    otpValidTill: {
         type: Date
     }
 })

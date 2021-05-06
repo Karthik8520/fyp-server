@@ -11,7 +11,7 @@ const pointSchema = new mongoose.Schema({
       type: [Number],
       required: true
     }
-  });
+});
 
 
 const userSchema = mongoose.Schema({
